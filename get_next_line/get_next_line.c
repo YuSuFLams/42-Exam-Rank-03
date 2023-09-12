@@ -47,7 +47,7 @@ char *ft_strjoin(char *s1, char *s2)
 	int i;
 
 	char *s;
-	s = (char *)malloc(len1 + len2 + 1 *sizeof(char)); 
+	s = (char *)malloc((len1 + len2 + 1) *sizeof(char)); 
 	if (!s)
 		return(NULL);
 	i = 0;
@@ -74,7 +74,7 @@ int size_line(char *s)
 	if (!s)
 		return(-1);
 	i = 0;
-	while(*(s + i) && *(s = i) != '\n')
+	while(*(s + i) && *(s + i) != '\n')
 		i++;
 	if (*(s + i) == '\0')
 		return(-1);
@@ -135,7 +135,7 @@ char *get_next_line(int fd)
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return(NULL);
-	while(buffer_len(static_l) == -1)
+	while(size_line(static_l) == -1)
 	{
 		count = read(fd, buffer, BUFFER_SIZE);
 		if (count <= 0)
@@ -144,7 +144,7 @@ char *get_next_line(int fd)
 		static_l = ft_strjoin(static_l, buffer);
 	}
 	free((char *)buffer);
-	new_line = line_cutter(static_l);
-	static_l = old_line_rm(static_l);
+	new_line = read_line(static_l);
+	static_l = next_line(static_l);
 	return(new_line);
 }
