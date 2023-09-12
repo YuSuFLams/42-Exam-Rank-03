@@ -64,7 +64,7 @@ char *ft_strjoin(char *s1, char *s2)
 	}
 	*(s + len1 + i) = '\0';
 	free((char *)s1);
-	return(dest);
+	return(s);
 }	
 
 int size_line(char *s)
